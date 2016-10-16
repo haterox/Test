@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arial;
+}
+    
+#wrap {
+    width: 500px;
+    height: 300px;
+    background-color: burlywood;
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    z-index: 0;
+}
+
+#bird {
+    width: 50px;
+    height: 50px;
+    background-color: brown;
+    position: absolute;
+    top: 0;
+    left: 50px;
+    z-index: 1;
+}
+
+.pipes {
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+    border: 1px #fff dotted;
+    top: 0;
+    right:0;
+    margin: 0 20px 0 20px;
+}
+
+.pipeu, .piped {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: darkgreen;
+    opacity: 0.6;
+}
+    
+.pipeu {
+    top: 0;
+}
+
+.piped {
+    bottom: 0;
+}
+
+#info {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.7;
+    background-color: darkslategrey;
+    display: none;
+    padding: 5px;
+    font-size: 16px;
+    color: white;
+    z-index: 4;
+}
+
+#info a {
+    color:darkorange;
+    text-decoration: none;
+    }
+    
+#s {
+    position: fixed;
+    width: 100%;
+    height: 30px;
+    background-color: aquamarine;
+    padding: 5px;
+    font-family: serif;
+    font-size: 10px;
+    }
+    
+</style>
+
+<script>
+function draw() {
+var makePipe = document.createElement('div');
+makePipe.className('pipes');
+pipes.push();
+}
+</script>
+
+</head>
+<body onload="game();">
+<div id="s">no data :(((</div>
+<div id="wrap">
+<div id="info">info</div>
+<div id="bird">x</div>
+<div class="pipes">
+    <div class="pipeu">&nbsp;</div>
+    <div class="piped">&nbsp;</div>
+</div>
+</div>    
+
+<script>
+function game() {
+var s = document.getElementById("s");
+var info = document.getElementById("info");
+var flyDown = 60;
+var bird = document.getElementById("bird");
+var flyUp = document.getElementById("wrap");
+var pipes = document.getElementsByClassName("pipes");
+var pipesGo = 0;
+var fly = setInterval(function() {
+    flyDown++;
+    bird.style = "top:"+flyDown+"px;";
+    flyUp.onclick = up;
+    flyUp.onkeypress = up;
+    function up() {
+        flyDown -= 20;
+        bird.style = "top:"+flyDown+"px;";
+        }
+    
+    if (flyDown === 280) {
+        flyDown = 280;
+        info.style = "display: block";
+        info.innerHTML = "Koniec gry. <a href='javascript:reset();'>Jeszcze raz!</a>";
+        bird.style = "top:"+flyDown+"px;";
+        flyUp.onclick = false;
+        clearTimeout(fly);
+    } else if (flyDown < -19) {
+        flyDown = -19;
+        info.style = "display: block";
+        info.innerHTML = "Koniec gry. <a href='javascript:reset();'>Jeszcze raz!</a>";
+        bird.style = "top:"+flyDown+"px;";
+        flyUp.onclick = false;
+        clearTimeout(fly);
+        }
+    
+draw;
+pipesGo++;
+for (var i = 0; i < pipes.length; i++) {
+    pipes[i].style = "right:"+pipesGo+"px;";
+}
+
+s.innerHTML = flyDown+ "| " + pipesGo;
+},20);
+
+    
+} //game() END
+    
+function reset() {
+    document.getElementById("info").style = "display:none;";
+    game();
+}
+</script>
+            
+</body>
